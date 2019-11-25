@@ -13,9 +13,11 @@ class App extends Component {
         super(props);
 
         this.state = {
+            status: {},
             questionsGraph: null,
             counter: 0,
-            questionId: 1,
+            questionNode: null,
+            questionId: 0,
             question: '',
             answerOptions: [],
             answer: '',
@@ -30,6 +32,7 @@ class App extends Component {
         const questionsGraph = Graph.jsonToGraph(questions_json);
         this.setState({
             questionsGraph: questionsGraph,
+            questionNode: questionsGraph.nodes[0],
             question: questionsGraph.nodes[0].label,
             questionId: questionsGraph.nodes[0].index,
             answerOptions: questionsGraph.getEdges(questionsGraph.nodes[0])
@@ -57,6 +60,7 @@ class App extends Component {
     }
 
     handleAnswerSelected(event) {
+        this.setStatus(event.currentTarget.value);
         this.setUserAnswer(event.currentTarget.value);
 
         if (this.state.questionId < quizQuestions.length) {
@@ -64,6 +68,15 @@ class App extends Component {
         } else {
             setTimeout(() => this.setResults(this.getResults()), 300);
         }
+    }
+
+    setStatus(answer) {
+        let status = this.state.status;
+        const field = this.state.questionNode.field;
+        status[field] = answer;
+        this.setState({
+           status: status
+        });
     }
 
     setUserAnswer(answer) {
@@ -82,6 +95,7 @@ class App extends Component {
 
         this.setState({
             counter: counter,
+            questionNode: nextQuestion,
             questionId: nextQuestion.index,
             question: nextQuestion.label,
             answerOptions: this.state.questionsGraph.getEdges(nextQuestion),
@@ -124,6 +138,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.status);
         return (
             <div className="App">
                 <div className="App-header">

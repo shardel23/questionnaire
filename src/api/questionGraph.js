@@ -1,6 +1,6 @@
 const questions_json = {
     nodes: [
-        {index: 0, label: "מה המגדר שלך?"},
+        {index: 0, label: "מה המגדר שלך?", field: "gender"},
         {index: 1, label: "האם יש לך ילדים מתחת לגיל 18?"},
         {index: 2, label: "האם יש לך ילדים מתחת לגיל 5?"},
         {index: 3, label: "מה גובה שכר הברוטו החודשי שלך?"},
