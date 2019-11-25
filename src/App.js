@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import quizQuestions from './api/quizQuestions';
+import questions_json from './api/questionGraph';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 import logo from './svg/logo.svg';
 import './App.css';
 import './css/bootstrap-iso.css'
+import {Graph} from "./graph/Graph";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            questionsGraph: null,
             counter: 0,
             questionId: 1,
             question: '',
@@ -24,12 +27,12 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const shuffledAnswerOptions = quizQuestions.map(question =>
-            this.shuffleArray(question.answers)
-        );
+        const questionsGraph = Graph.jsonToGraph(questions_json);
         this.setState({
-            question: quizQuestions[0].question,
-            answerOptions: shuffledAnswerOptions[0]
+            questionsGraph: questionsGraph,
+            question: questionsGraph.nodes[0].label,
+            questionId: questionsGraph.nodes[0].index,
+            answerOptions: questionsGraph.getEdges(questionsGraph.nodes[0])
         });
     }
 
@@ -54,7 +57,6 @@ class App extends Component {
     }
 
     handleAnswerSelected(event) {
-        console.log(event.currentTarget);
         this.setUserAnswer(event.currentTarget.value);
 
         if (this.state.questionId < quizQuestions.length) {
@@ -75,14 +77,14 @@ class App extends Component {
     }
 
     setNextQuestion() {
+        const nextQuestion = this.state.questionsGraph.getNextNode(this.state.questionId, this.state.answer);
         const counter = this.state.counter + 1;
-        const questionId = this.state.questionId + 1;
 
         this.setState({
             counter: counter,
-            questionId: questionId,
-            question: quizQuestions[counter].question,
-            answerOptions: quizQuestions[counter].answers,
+            questionId: nextQuestion.index,
+            question: nextQuestion.label,
+            answerOptions: this.state.questionsGraph.getEdges(nextQuestion),
             answer: ''
         });
     }
