@@ -80,6 +80,7 @@ class App extends Component {
 
     renderQuiz() {
         const questionsTotal = this.state.questionsGraph === null ? 0 : this.state.questionsGraph.getNumOfQuestions();
+        const progress = this.state.questionsGraph === null ? 0 : this.state.questionsGraph.getProgress(this.state.questionId);
         return (
             <Quiz
                 answer={this.state.answer}
@@ -87,6 +88,7 @@ class App extends Component {
                 questionId={this.state.questionId}
                 question={this.state.question}
                 questionTotal={questionsTotal}
+                progress={progress}
                 onAnswerSelected={this.handleAnswerSelected}
             />
         );

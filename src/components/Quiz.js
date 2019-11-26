@@ -36,7 +36,7 @@ function Quiz(props) {
         >
             <div key={props.questionId}>
                 <div className="bootstrap-iso">
-                    <ProgressBar className="right" now={(props.questionId) / props.questionTotal * 100}/>
+                    <ProgressBar className="right" now={props.progress}/>
                 </div>
                 {/*<QuestionCount counter={props.questionId} total={props.questionTotal}/>*/}
                 <Question content={props.question}/>
@@ -55,6 +55,7 @@ Quiz.propTypes = {
     question: PropTypes.string.isRequired,
     questionId: PropTypes.number.isRequired,
     questionTotal: PropTypes.number.isRequired,
+    progress: PropTypes.number.isRequired,
     onAnswerSelected: PropTypes.func.isRequired
 };
 

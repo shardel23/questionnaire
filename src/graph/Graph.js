@@ -58,6 +58,14 @@ export class Graph {
         }
     }
 
+    getProgress(questionId) {
+        for (let i = 0; i < this.nodes.length; i++) {
+            if (this.nodes[i].index === questionId) {
+                return (i/this.getNumOfQuestions())*100;
+            }
+        }
+    }
+
     getNumOfQuestions() {
         return this.nodes.length-2;
     }
