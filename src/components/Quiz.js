@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {CSSTransitionGroup} from 'react-transition-group';
 import Question from '../components/Question';
-import QuestionCount from '../components/QuestionCount';
 import AnswerOption from '../components/AnswerOption';
 import ProgressBar from "react-bootstrap/ProgressBar";
 
@@ -21,10 +20,6 @@ function Quiz(props) {
         );
     }
 
-    function goBack() {
-        alert('This should go back...')
-    }
-
     return (
         <CSSTransitionGroup
             className="container"
@@ -39,12 +34,10 @@ function Quiz(props) {
                 <div className="bootstrap-iso">
                     <ProgressBar className="right" now={props.progress}/>
                 </div>
-                {/*<QuestionCount counter={props.questionId} total={props.questionTotal}/>*/}
                 <Question content={props.question}/>
                 <ul className="answerOptions">
                     {props.answerOptions.map(renderAnswerOptions)}
                 </ul>
-                {/*<button onClick={goBack}> button</button>*/}
             </div>
         </CSSTransitionGroup>
     );
