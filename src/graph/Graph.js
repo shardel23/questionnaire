@@ -57,4 +57,8 @@ export class Graph {
             }
         }
     }
+
+    getNumOfQuestions() {
+        return this.nodes.length-2;
+    }
 }

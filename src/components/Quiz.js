@@ -36,7 +36,7 @@ function Quiz(props) {
         >
             <div key={props.questionId}>
                 <div className="bootstrap-iso">
-                    <ProgressBar className="right" now={(props.questionId - 1) / props.questionTotal * 100}/>
+                    <ProgressBar className="right" now={(props.questionId) / props.questionTotal * 100}/>
                 </div>
                 {/*<QuestionCount counter={props.questionId} total={props.questionTotal}/>*/}
                 <Question content={props.question}/>

@@ -63,7 +63,9 @@ class App extends Component {
         this.setStatus(event.currentTarget.value);
         this.setUserAnswer(event.currentTarget.value);
 
-        if (this.state.questionId < quizQuestions.length) {
+        // TODO: Check if last question, if so, display result page accordingly
+        // if (this.state.questionsGraph.getNextNode(this.state.questionId, this.state.answer))
+        if (this.state.counter < this.state.questionsGraph.getNumOfQuestions()) {
             setTimeout(() => this.setNextQuestion(), 300);
         } else {
             setTimeout(() => this.setResults(this.getResults()), 300);
@@ -121,13 +123,14 @@ class App extends Component {
     }
 
     renderQuiz() {
+        const questionsTotal = this.state.questionsGraph === null ? 0 : this.state.questionsGraph.getNumOfQuestions()
         return (
             <Quiz
                 answer={this.state.answer}
                 answerOptions={this.state.answerOptions}
                 questionId={this.state.questionId}
                 question={this.state.question}
-                questionTotal={quizQuestions.length}
+                questionTotal={questionsTotal}
                 onAnswerSelected={this.handleAnswerSelected}
             />
         );
