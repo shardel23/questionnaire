@@ -1,10 +1,11 @@
 export class Edge {
-    constructor(from, to, label) {
+    constructor(from, to, label, eligible) {
         this.from = from;
         this.to = to;
         this.label = label;
         this.content = label;
         this.type = label;
+        this.eligible = eligible;
     }
 
     toString() {

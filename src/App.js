@@ -21,8 +21,6 @@ class App extends Component {
             question: '',
             answerOptions: [],
             answer: '',
-            answersCount: {},
-            result: '',
             done: false
         };
 
@@ -41,11 +39,22 @@ class App extends Component {
     }
 
     handleAnswerSelected(event) {
-        this.setStatus(event.currentTarget.value);
+        this.setStatus(event.currentTarget.id);
         this.setState({
-            answer: event.currentTarget.value
+            answer: event.currentTarget.id
         });
+        this.setEligible(event.currentTarget.value === 'true');
         setTimeout(() => this.setNextQuestion(), 300);
+    }
+
+    setEligible(value) {
+        this.setState({
+            eligible: this.state.eligible || value
+        });
+        if (value) {
+
+            console.log('eligible!')
+        }
     }
 
     setStatus(answer) {
@@ -95,7 +104,6 @@ class App extends Component {
     }
 
     renderResult() {
-        // TODO: Handle the change of 'eligible'
         return <Result quizResult={this.state.eligible}/>;
     }
 

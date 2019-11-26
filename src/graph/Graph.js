@@ -27,7 +27,7 @@ export class Graph {
         let nodes = [];
         let edges = [];
         json.nodes.forEach(node => nodes.push(new GraphNode(node.index, node.label, node.field)));
-        json.edges.forEach(edge => edges.push(new Edge(edge.from, edge.to, edge.label)));
+        json.edges.forEach(edge => edges.push(new Edge(edge.from, edge.to, edge.label, edge.eligible)));
         return new Graph(nodes, edges);
     }
 
