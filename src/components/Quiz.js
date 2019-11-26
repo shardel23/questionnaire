@@ -27,7 +27,7 @@ function Quiz(props) {
             transitionName="fade"
             transitionEnterTimeout={800}
             transitionLeaveTimeout={500}
-            transitionAppear
+            transitionAppear={false}
             transitionAppearTimeout={500}
         >
             <div key={props.questionId}>

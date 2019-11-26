@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import questions_json from './api/questionGraph';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
-import logo from './svg/logo.svg';
+import logo from './svg/nlogo.png';
 import './App.css';
 import './css/bootstrap-iso.css'
 import {Graph} from "./graph/Graph";
@@ -112,7 +112,7 @@ class App extends Component {
             <div className="App">
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
-                    <h2>Tax Quiz</h2>
+                    <h1>שאלון החזר מס</h1>
                 </div>
                 {this.state.done ? this.renderResult() : this.renderQuiz()}
             </div>
