@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group';
 
 function Result(props) {
+    let result = props.quizResult ? "יש לך סיכוי גבוה לקבלת החזר מס!" : "הינך בעל סיכוי נמוך לקבלת החזר מס"
   return (
     <CSSTransitionGroup
       className="container result"
@@ -14,7 +15,7 @@ function Result(props) {
       transitionAppearTimeout={500}
     >
       <div>
-        You prefer <strong>{props.quizResult}</strong>!
+        <strong>{result}</strong>
       </div>
     </CSSTransitionGroup>
   );
