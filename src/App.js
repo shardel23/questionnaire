@@ -104,6 +104,7 @@ class App extends Component {
     }
 
     renderResult() {
+        console.log(this.state.status);
         return <Result quizResult={this.state.eligible}/>;
     }
 
