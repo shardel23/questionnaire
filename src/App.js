@@ -6,12 +6,15 @@ import logo from './svg/nlogo.png';
 import './App.css';
 import './css/bootstrap-iso.css'
 import {Graph} from "./graph/Graph";
+import WelcomePage from "./components/WelcomePage";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            name: "",
+            isStarted: false,
             status: {},
             eligible: false,
             questionsGraph: null,
@@ -25,6 +28,7 @@ class App extends Component {
         };
 
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -37,6 +41,20 @@ class App extends Component {
             answerOptions: questionsGraph.getEdges(questionsGraph.nodes[0])
         });
     }
+
+    handleInputTextChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    };
+
+    onSubmit = () => {
+        if (this.state.name.length > 2) {
+            this.setState({
+                isStarted: true
+            })
+        }
+    };
 
     handleAnswerSelected(event) {
         this.setStatus(event.currentTarget.id);
@@ -52,7 +70,6 @@ class App extends Component {
             eligible: this.state.eligible || value
         });
         if (value) {
-
             console.log('eligible!')
         }
     }
@@ -108,13 +125,19 @@ class App extends Component {
     }
 
     render() {
+        const toDisplay = !this.state.isStarted ?
+            <WelcomePage
+                name={this.state.status.name}
+                onSubmit={this.onSubmit}
+                handleInputTextChange={this.handleInputTextChange}/> :
+            (this.state.done ? this.renderResult() : this.renderQuiz());
         return (
             <div className="App">
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
                     <h1>שאלון החזר מס</h1>
                 </div>
-                {this.state.done ? this.renderResult() : this.renderQuiz()}
+                {toDisplay}
             </div>
         );
     }
